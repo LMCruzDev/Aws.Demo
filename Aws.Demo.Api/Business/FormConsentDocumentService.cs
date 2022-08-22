@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Aws.Demo.Api.Business.Abstractions;
 using Aws.Demo.Api.Controllers.Models.ConsentDocuments;
 
