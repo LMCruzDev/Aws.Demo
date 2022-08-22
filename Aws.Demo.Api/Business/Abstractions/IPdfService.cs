@@ -12,7 +12,7 @@ namespace Aws.Demo.Api.Business.Abstractions
 
         Task<ApiFormsPdf> GetByIdAsync(Guid id, int version);
 
-        Task<ApiFormsPdf> AddAsync(ApiAddFormsPdf model);
+        Task<ApiFormsPdf> AddAsync(ApiAddFormsPdf apiAddFormsPdf);
 
         Task UpdateAsync(JsonPatchDocument<ApiFormsPdf> patchDocument, Guid id, int version);
 

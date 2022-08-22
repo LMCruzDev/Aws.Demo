@@ -2,7 +2,7 @@
 
 namespace Aws.Demo.Api.Messaging.Abstraction
 {
-    public interface IPublisher<TModel>
+    public interface IPublisher<in TModel>
     {
         Task Publish(TModel model);
     }

@@ -55,11 +55,9 @@ namespace Aws.Demo.Api
 
             // Repositories
             services.AddSingleton<IRepository<DataFormsPdf, string, string>, PdfsRepository>();
-            //services.AddSingleton<IRepository<DataProduct, Guid, Guid>, ProductsRepository>();
             
             // Services
             services.AddScoped<IPdfService, PdfService>();
-            //services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IAmazonS3Service, AmazonS3Service>();
             services.AddScoped<IFormConsentDocumentService, FormConsentDocumentService>();
 

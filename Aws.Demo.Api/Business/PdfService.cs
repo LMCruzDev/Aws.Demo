@@ -40,13 +40,13 @@ namespace Aws.Demo.Api.Business
             return result.ToModel();
         }
 
-        public async Task<ApiFormsPdf> AddAsync(ApiAddFormsPdf apiAddModel)
+        public async Task<ApiFormsPdf> AddAsync(ApiAddFormsPdf apiAddFormsPdf)
         {
-            apiAddModel.ThrowIfNull(nameof(apiAddModel));
+            apiAddFormsPdf.ThrowIfNull(nameof(apiAddFormsPdf));
 
-            var model = apiAddModel.ToModel();
+            var model = apiAddFormsPdf.ToModel();
 
-            var pdfModels = await ListAsync(apiAddModel.Id);
+            var pdfModels = await ListAsync(apiAddFormsPdf.Id);
 
             if(pdfModels.Any())
             {
@@ -56,9 +56,7 @@ namespace Aws.Demo.Api.Business
 
             await _repository.SaveAsync(model.ToData());
 
-            var updatedModel = await this.GetByIdAsync(apiAddModel.Id, model.Version);
-
-            await this.publisher.Publish(apiAddModel.ToMessage());
+            await this.publisher.Publish(apiAddFormsPdf.ToMessage());
 
             return model;
         }

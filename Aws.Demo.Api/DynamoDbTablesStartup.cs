@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,20 +6,16 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Aws.Demo.Api
 {
     public class DynamoDbTablesStartup : IHostedService
     {
-        private readonly ILogger<DynamoDbTablesStartup> logger;
         private readonly AmazonDynamoDBClient amazonDynamoDBClient;
 
         public DynamoDbTablesStartup(
-            ILogger<DynamoDbTablesStartup> logger,
             AmazonDynamoDBClient amazonDynamoDBClient)
         {
-            this.logger = logger;
             this.amazonDynamoDBClient = amazonDynamoDBClient;
         }
 
@@ -67,16 +62,16 @@ namespace Aws.Demo.Api
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            //var tableNames = this.GetType().Assembly.GetTypes()
-            //   .Where(a => a.IsClass && a.CustomAttributes.Any(c => c.AttributeType == typeof(DynamoDBTableAttribute)))
-            //   .Select(a => a.CustomAttributes.ToList()[0].ConstructorArguments[0].Value.ToString())
-            //   .ToList();
+            var tableNames = this.GetType().Assembly.GetTypes()
+               .Where(a => a.IsClass && a.CustomAttributes.Any(c => c.AttributeType == typeof(DynamoDBTableAttribute)))
+               .Select(a => a.CustomAttributes.ToList()[0].ConstructorArguments[0].Value.ToString())
+               .ToList();
 
-            //var tasks = tableNames
-            //    .Select(t => amazonDynamoDBClient.DeleteTableAsync(t, cancellationToken))
-            //    .ToArray();
+            var tasks = tableNames
+                .Select(t => amazonDynamoDBClient.DeleteTableAsync(t, cancellationToken))
+                .ToArray();
 
-            //Task.WaitAll(tasks);
+            await Task.WhenAll(tasks);
         }
     }
 }

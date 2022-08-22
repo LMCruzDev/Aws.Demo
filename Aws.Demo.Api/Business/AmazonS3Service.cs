@@ -31,7 +31,7 @@ namespace Aws.Demo.Api.Business
                     UseClientRegion = true
                 };
 
-                PutBucketResponse putBucketResponse = await _amazonS3Client.PutBucketAsync(putBucketRequest);
+                _ = await _amazonS3Client.PutBucketAsync(putBucketRequest);
             }
         }
 

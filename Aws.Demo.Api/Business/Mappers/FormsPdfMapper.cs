@@ -12,7 +12,9 @@ namespace Aws.Demo.Api.Business.Mappers
         public static ApiFormsPdf ToModel(this DataFormsPdf model)
         {
             if (model == null)
+            {
                 return null;
+            }
 
             return new()
             {
@@ -37,7 +39,12 @@ namespace Aws.Demo.Api.Business.Mappers
                 Status = Status.Waiting
             };
         }
-        
+
+        public static List<ApiFormsPdf> ToModel(this List<DataFormsPdf> list)
+        {
+            return list.Select(ToModel)?.OrderByDescending(l => l.Version).ToList();
+        }
+
         public static DataFormsPdf ToData(this ApiFormsPdf model)
         {
             return new()
@@ -59,11 +66,6 @@ namespace Aws.Demo.Api.Business.Mappers
                 Name = model.Name,
                 Html = model.Html
             };
-        }
-
-        public static List<ApiFormsPdf> ToModel(this List<DataFormsPdf> list)
-        {
-            return list.Select(ToModel)?.OrderByDescending(l => l.Version).ToList();
         }
     }
 }
